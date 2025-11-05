@@ -1,0 +1,160 @@
+<div class="page-container flex items-center justify-center">
+  <div class="card p-10 w-full max-w-2xl">
+    <div class="text-center mb-8">
+      <h1 class="text-5xl font-black gradient-text mb-3">Create New Request</h1>
+      <p class="text-xl text-slate-600 font-medium">Tell us how we can help you today</p>
+    </div>
+
+    <form #form="ngForm" (ngSubmit)="submitRequest(form)" class="space-y-8">
+
+      <!-- Title -->
+      <div class="space-y-3">
+        <label class="flex items-center text-lg font-bold text-slate-700">
+          <span class="text-2xl mr-3">📝</span>
+          What do you need help with?
+        </label>
+        <input
+          type="text"
+          name="title"
+          [(ngModel)]="request.title"
+          required
+          placeholder="e.g., Moving furniture, Pet sitting, Tech support"
+          class="form-input text-lg"
+        />
+      </div>
+
+      <!-- Category -->
+      <div class="space-y-3">
+        <label class="flex items-center text-lg font-bold text-slate-700">
+          <span class="text-2xl mr-3">🗂️</span>
+          Category
+        </label>
+        <select
+          name="category"
+          [(ngModel)]="request.category"
+          required
+          class="form-select text-lg"
+        >
+          <option value="" disabled selected>Choose the best category</option>
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+      </div>
+
+      <!-- Description -->
+      <div class="space-y-3">
+        <label class="flex items-center text-lg font-bold text-slate-700">
+          <span class="text-2xl mr-3">💬</span>
+          Describe your request
+        </label>
+        <textarea
+          name="description"
+          [(ngModel)]="request.description"
+          placeholder="Please provide details about what you need help with, when you need it, and any specific requirements..."
+          required
+          rows="4"
+          class="form-input text-lg resize-none"
+        ></textarea>
+      </div>
+
+      <!-- Location -->
+      <div class="space-y-3">
+        <label class="flex items-center text-lg font-bold text-slate-700">
+          <span class="text-2xl mr-3">📍</span>
+          Location
+        </label>
+        <input
+          type="text"
+          name="location"
+          [(ngModel)]="request.location"
+          placeholder="City, neighborhood, or specific address"
+          required
+          class="form-input text-lg"
+        />
+      </div>
+
+      <!-- Urgency -->
+      <div class="space-y-3">
+        <label class="flex items-center text-lg font-bold text-slate-700">
+          <span class="text-2xl mr-3">⚡</span>
+          How urgent is this?
+        </label>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <label class="cursor-pointer">
+            <input type="radio" [(ngModel)]="request.urgency" name="urgency" value="LOW" class="sr-only">
+            <div [class]="request.urgency === 'LOW' ? 'card p-4 bg-green-100 border-2 border-green-400 transform scale-105' : 'card p-4 hover:scale-105'">
+              <div class="text-center">
+                <div class="text-3xl mb-2">🟢</div>
+                <div class="font-bold">Low Priority</div>
+                <div class="text-sm opacity-75">Can wait a few days</div>
+              </div>
+            </div>
+          </label>
+          <label class="cursor-pointer">
+            <input type="radio" [(ngModel)]="request.urgency" name="urgency" value="MEDIUM" class="sr-only">
+            <div [class]="request.urgency === 'MEDIUM' ? 'card p-4 bg-yellow-100 border-2 border-yellow-400 transform scale-105' : 'card p-4 hover:scale-105'">
+              <div class="text-center">
+                <div class="text-3xl mb-2">🟡</div>
+                <div class="font-bold">Medium Priority</div>
+                <div class="text-sm opacity-75">Needed within a day</div>
+              </div>
+            </div>
+          </label>
+          <label class="cursor-pointer">
+            <input type="radio" [(ngModel)]="request.urgency" name="urgency" value="HIGH" class="sr-only">
+            <div [class]="request.urgency === 'HIGH' ? 'card p-4 bg-red-100 border-2 border-red-400 transform scale-105' : 'card p-4 hover:scale-105'">
+              <div class="text-center">
+                <div class="text-3xl mb-2">🔴</div>
+                <div class="font-bold">High Priority</div>
+                <div class="text-sm opacity-75">Urgent - ASAP</div>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="space-y-3">
+        <label class="flex items-center text-lg font-bold text-slate-700">
+          <span class="text-2xl mr-3">📧</span>
+          Your Contact Email
+        </label>
+        <input
+          type="email"
+          name="seekerEmail"
+          [(ngModel)]="request.seekerEmail"
+          placeholder="your.email@example.com"
+          required
+          class="form-input text-lg"
+        />
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 pt-6">
+        <button
+          type="button"
+          (click)="cancel()"
+          class="btn-secondary flex-1 text-lg py-4"
+        >
+          <span class="text-xl mr-2">←</span>
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn-primary flex-1 text-lg py-4"
+        >
+          <span class="text-xl mr-2">🚀</span>
+          Submit Request
+        </button>
+      </div>
+
+      <!-- Helper Text -->
+      <div class="glass p-4 rounded-xl text-center">
+        <p class="text-slate-600 font-medium">
+          <span class="text-lg mr-2">💡</span>
+          Your request will be visible to helpers in your area. Be as detailed as possible to get the best assistance!
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

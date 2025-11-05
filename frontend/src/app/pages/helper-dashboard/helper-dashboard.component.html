@@ -1,0 +1,141 @@
+<div class="page-container">
+  <div class="content-container">
+    <!-- Dashboard Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-6xl font-black gradient-text mb-3">Helper Dashboard</h1>
+      <p class="text-xl text-slate-600 font-medium">Make a difference in someone's life today</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+      <div class="stat-card group">
+        <div class="text-4xl mb-4">🆘</div>
+        <p class="text-slate-600 text-lg font-medium">Active Requests</p>
+        <h3 class="text-4xl font-black gradient-text mt-2">{{ activeRequestsCount }}</h3>
+      </div>
+      <div class="stat-card group">
+        <div class="text-4xl mb-4">🎉</div>
+        <p class="text-slate-600 text-lg font-medium">Completed Requests</p>
+        <h3 class="text-4xl font-black gradient-text mt-2">{{ completedRequestsCount }}</h3>
+      </div>
+      <div class="stat-card group">
+        <div class="text-4xl mb-4">🤝</div>
+        <p class="text-slate-600 text-lg font-medium">Available Helpers</p>
+        <h3 class="text-4xl font-black gradient-text mt-2">{{ availableHelpers }}</h3>
+      </div>
+    </div>
+
+    <!-- Active Requests Section -->
+    <div class="mb-12">
+      <h3 class="text-3xl font-bold gradient-text mb-8 text-center">
+        <span class="text-3xl mr-3">🚨</span>Requests Waiting for Help
+      </h3>
+      
+      <div *ngIf="activeRequests.length === 0" class="text-center py-12">
+        <div class="text-6xl mb-4">🌟</div>
+        <p class="text-xl text-slate-500 font-medium">No active requests at the moment</p>
+        <p class="text-slate-400">Great job! All requests have been handled.</p>
+      </div>
+
+      <div class="grid gap-6">
+        <div *ngFor="let request of activeRequests" class="request-card">
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex-1">
+              <div class="flex items-center gap-4 mb-3">
+                <h4 class="text-2xl font-bold text-slate-800">{{ request.title }}</h4>
+                <span [class]="'urgency-' + request.urgency?.toLowerCase()">
+                  {{ request.urgency }} Priority
+                </span>
+              </div>
+              <p class="text-slate-600 mb-4 leading-relaxed text-lg">{{ request.description }}</p>
+            </div>
+          </div>
+
+          <div class="glass p-4 rounded-xl mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="flex items-center">
+                <span class="text-xl mr-3">📍</span>
+                <div>
+                  <p class="text-sm font-medium text-slate-600">Location</p>
+                  <p class="font-bold text-slate-800">{{ request.location }}</p>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <span class="text-xl mr-3">🗂️</span>
+                <div>
+                  <p class="text-sm font-medium text-slate-600">Category</p>
+                  <p class="font-bold text-slate-800">{{ request.category }}</p>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <span class="text-xl mr-3">👤</span>
+                <div>
+                  <p class="text-sm font-medium text-slate-600">Seeker</p>
+                  <p class="font-bold text-slate-800 text-sm">{{ request.seekerEmail }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button class="btn-success text-lg px-12 py-4" (click)="offerHelp(request.id)">
+              <span class="text-2xl mr-3">🤝</span>
+              Offer Help & Complete Request
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Completed Requests Section -->
+    <div class="mb-12" *ngIf="completedRequests.length > 0">
+      <h3 class="text-3xl font-bold gradient-text mb-8 text-center">
+        <span class="text-3xl mr-3">✅</span>Your Recent Contributions
+      </h3>
+      
+      <div class="grid gap-6">
+        <div *ngFor="let request of completedRequests" class="request-card">
+          <div class="flex items-center justify-between mb-4">
+            <h4 class="text-xl font-bold text-slate-800">{{ request.title }}</h4>
+            <span class="status-completed">Completed</span>
+          </div>
+          
+          <p class="text-slate-600 mb-4 leading-relaxed">{{ request.description }}</p>
+          
+          <div class="glass p-4 rounded-xl mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div class="flex items-center">
+                <span class="text-lg mr-2">📍</span>
+                <div>
+                  <p class="text-xs font-medium text-slate-600">Location</p>
+                  <p class="font-bold text-slate-800">{{ request.location }}</p>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <span class="text-lg mr-2">🗂️</span>
+                <div>
+                  <p class="text-xs font-medium text-slate-600">Category</p>
+                  <p class="font-bold text-slate-800">{{ request.category }}</p>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <span class="text-lg mr-2">👤</span>
+                <div>
+                  <p class="text-xs font-medium text-slate-600">Seeker</p>
+                  <p class="font-bold text-slate-800 text-sm">{{ request.seekerEmail }}</p>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <span class="text-lg mr-2">🤝</span>
+                <div>
+                  <p class="text-xs font-medium text-slate-600">Helper</p>
+                  <p class="font-bold text-green-600 text-sm">{{ request.helperEmail }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,166 @@
+<div class="page-container flex items-center justify-center">
+  <div class="content-container">
+    
+    <!-- Hero Section -->
+    <div class="text-center mb-16">
+      <h1 class="text-6xl font-black gradient-text mb-6">
+        How do you want to make a difference?
+      </h1>
+      <p class="text-2xl text-slate-600 font-medium max-w-3xl mx-auto leading-relaxed">
+        Choose your role in our community. You can always switch between helping others 
+        and seeking assistance whenever you need.
+      </p>
+    </div>
+
+    <!-- Role Selection Cards -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+      
+      <!-- Helper Card -->
+      <div class="card p-10 text-center hover:scale-105 group">
+        <div class="mb-8">
+          <div class="text-8xl mb-4">🤝</div>
+          <h2 class="text-3xl font-black gradient-text mb-4">Helper</h2>
+          <p class="text-xl text-slate-600 font-medium leading-relaxed">
+            Share your skills and time to support others in our community. 
+            Be the change you want to see in the world.
+          </p>
+        </div>
+
+        <!-- Benefits -->
+        <div class="space-y-4 mb-8">
+          <div class="glass p-4 rounded-xl">
+            <div class="flex items-center justify-center mb-2">
+              <span class="text-2xl mr-3">⏰</span>
+              <span class="font-bold text-slate-700">Flexible Scheduling</span>
+            </div>
+            <p class="text-slate-600">Help when it works for you</p>
+          </div>
+          
+          <div class="glass p-4 rounded-xl">
+            <div class="flex items-center justify-center mb-2">
+              <span class="text-2xl mr-3">🎯</span>
+              <span class="font-bold text-slate-700">Choose Your Categories</span>
+            </div>
+            <p class="text-slate-600">Focus on your expertise areas</p>
+          </div>
+          
+          <div class="glass p-4 rounded-xl">
+            <div class="flex items-center justify-center mb-2">
+              <span class="text-2xl mr-3">⭐</span>
+              <span class="font-bold text-slate-700">Build Your Reputation</span>
+            </div>
+            <p class="text-slate-600">Earn trust and recognition</p>
+          </div>
+          
+          <div class="glass p-4 rounded-xl">
+            <div class="flex items-center justify-center mb-2">
+              <span class="text-2xl mr-3">💝</span>
+              <span class="font-bold text-slate-700">Make Real Connections</span>
+            </div>
+            <p class="text-slate-600">Build lasting friendships</p>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <button
+          routerLink="/auth"
+          [queryParams]="{ role: 'helper' }"
+          class="btn-success w-full text-xl py-6"
+        >
+          <span class="text-2xl mr-3">🚀</span>
+          Become a Helper
+        </button>
+      </div>
+
+      <!-- Seeker Card -->
+      <div class="card p-10 text-center hover:scale-105 group">
+        <div class="mb-8">
+          <div class="text-8xl mb-4">🙋‍♂️</div>
+          <h2 class="text-3xl font-black gradient-text mb-4">Seeker</h2>
+          <p class="text-xl text-slate-600 font-medium leading-relaxed">
+            Find trusted community members ready to assist you. 
+            Get the help you need, when you need it most.
+          </p>
+        </div>
+
+        <!-- Benefits -->
+        <div class="space-y-4 mb-8">
+          <div class="glass p-4 rounded-xl">
+            <div class="flex items-center justify-center mb-2">
+              <span class="text-2xl mr-3">📝</span>
+              <span class="font-bold text-slate-700">Easy Request Process</span>
+            </div>
+            <p class="text-slate-600">Simple, clear request creation</p>
+          </div>
+          
+          <div class="glass p-4 rounded-xl">
+            <div class="flex items-center justify-center mb-2">
+              <span class="text-2xl mr-3">🔍</span>
+              <span class="font-bold text-slate-700">Find Verified Helpers</span>
+            </div>
+            <p class="text-slate-600">Connect with trusted community members</p>
+          </div>
+          
+          <div class="glass p-4 rounded-xl">
+            <div class="flex items-center justify-center mb-2">
+              <span class="text-2xl mr-3">💬</span>
+              <span class="font-bold text-slate-700">Direct Communication</span>
+            </div>
+            <p class="text-slate-600">Message helpers instantly</p>
+          </div>
+          
+          <div class="glass p-4 rounded-xl">
+            <div class="flex items-center justify-center mb-2">
+              <span class="text-2xl mr-3">🛡️</span>
+              <span class="font-bold text-slate-700">Safe & Secure</span>
+            </div>
+            <p class="text-slate-600">Protected interactions</p>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <button
+          routerLink="/auth"
+          [queryParams]="{ role: 'seeker' }"
+          class="btn-primary w-full text-xl py-6"
+        >
+          <span class="text-2xl mr-3">🆘</span>
+          Find Help Now
+        </button>
+      </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-black gradient-text mb-12">How It Works</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card p-8 text-center">
+          <div class="text-6xl mb-4">1️⃣</div>
+          <h3 class="text-xl font-bold text-slate-800 mb-3">Sign Up</h3>
+          <p class="text-slate-600">Create your account and choose your role as a helper or seeker</p>
+        </div>
+        
+        <div class="card p-8 text-center">
+          <div class="text-6xl mb-4">2️⃣</div>
+          <h3 class="text-xl font-bold text-slate-800 mb-3">Connect</h3>
+          <p class="text-slate-600">Post requests or browse available opportunities to help</p>
+        </div>
+        
+        <div class="card p-8 text-center">
+          <div class="text-6xl mb-4">3️⃣</div>
+          <h3 class="text-xl font-bold text-slate-800 mb-3">Make Impact</h3>
+          <p class="text-slate-600">Help each other and build stronger community connections</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="text-center">
+      <button routerLink="/" class="btn-secondary text-lg px-8 py-4">
+        <span class="text-xl mr-2">🏠</span>
+        Back to Home
+      </button>
+    </div>
+  </div>
+</div>

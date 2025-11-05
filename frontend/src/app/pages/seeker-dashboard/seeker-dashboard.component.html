@@ -1,0 +1,290 @@
+<div class="page-container">
+  <div class="content-container">
+    <!-- Dashboard Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-6xl font-black gradient-text mb-3">Seeker Dashboard</h1>
+      <p class="text-xl text-slate-600 font-medium">Find help when you need it most</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+      <div class="stat-card group">
+        <div class="text-4xl mb-4">🔄</div>
+        <p class="text-slate-600 text-lg font-medium">Active Requests</p>
+        <h3 class="text-4xl font-black gradient-text mt-2">{{ activeRequestsCount }}</h3>
+      </div>
+      <div class="stat-card group">
+        <div class="text-4xl mb-4">✅</div>
+        <p class="text-slate-600 text-lg font-medium">Completed Requests</p>
+        <h3 class="text-4xl font-black gradient-text mt-2">{{ completedRequestsCount }}</h3>
+      </div>
+      <div class="stat-card group">
+        <div class="text-4xl mb-4">🤝</div>
+        <p class="text-slate-600 text-lg font-medium">Available Helpers</p>
+        <h3 class="text-4xl font-black gradient-text mt-2">{{ availableHelpers }}</h3>
+      </div>
+    </div>
+
+    <!-- Quick Actions Section -->
+    <div class="mb-12">
+      <h3 class="text-3xl font-bold gradient-text mb-6 text-center">Quick Actions</h3>
+      <div class="flex flex-wrap justify-center gap-6">
+        <button
+          class="btn-primary text-lg px-10 py-5"
+          (click)="goToNewRequest()"
+        >
+          <span class="text-2xl mr-3">➕</span>
+          Create New Request
+        </button>
+
+        <button
+          [class]="showHelpersList ? 'btn-warning text-lg px-10 py-5' : 'btn-success text-lg px-10 py-5'"
+          (click)="browseAvailableHelpers()"
+        >
+          <span class="text-2xl mr-3">{{ showHelpersList ? '👁️' : '🔍' }}</span>
+          {{ showHelpersList ? 'Hide Helpers' : 'Browse Available Helpers' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Available Helpers Section -->
+    <div class="mb-12" *ngIf="showHelpersList">
+      <h3 class="text-3xl font-bold gradient-text mb-8 text-center">
+        <span class="text-3xl mr-3">🌟</span>Available Helpers
+      </h3>
+      
+      <div *ngIf="helpersList.length === 0" class="text-center py-12">
+        <div class="text-6xl mb-4">😔</div>
+        <p class="text-xl text-slate-500 font-medium">No helpers available at the moment</p>
+        <p class="text-slate-400">Check back later or create a request to attract helpers!</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          *ngFor="let helper of helpersList"
+          class="helper-card"
+        >
+          <div class="text-center mb-6">
+            <div class="text-4xl mb-3">🤝</div>
+            <h4 class="text-xl font-bold text-slate-800 mb-2">
+              {{ getDisplayName(helper.email) }}
+            </h4>
+          </div>
+          
+          <div class="space-y-3 mb-6">
+            <div class="flex items-center justify-between">
+              <span class="text-slate-600 font-medium">📧 Email:</span>
+              <span class="text-slate-800 font-semibold text-sm">{{ helper.email }}</span>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-slate-600 font-medium">Status:</span>
+            <span [class]="helper.verified ? 'status-verified' : 'status-unverified'">
+              {{ helper.verified ? '✅ Verified' : '⏳ Pending' }}
+            </span>
+          </div>
+          
+          <button 
+            class="btn-primary w-full"
+            (click)="copyEmail(helper.email)"
+            title="Send message via Gmail">
+            <span class="text-lg mr-2">📧</span>
+            Send Message
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Requests Section -->
+    <div class="mb-12">
+      <h3 class="text-3xl font-bold gradient-text mb-8 text-center">
+        <span class="text-3xl mr-3">🔄</span>Active Requests
+      </h3>
+      
+      <div *ngIf="activeRequests.length === 0" class="text-center py-12">
+        <div class="text-6xl mb-4">📝</div>
+        <p class="text-xl text-slate-500 font-medium">No active requests found</p>
+        <p class="text-slate-400 mb-6">Create your first request to get help!</p>
+        <button class="btn-primary" (click)="goToNewRequest()">
+          <span class="text-lg mr-2">➕</span>
+          Create Request
+        </button>
+      </div>
+
+      <div class="grid gap-6">
+        <div
+          *ngFor="let request of activeRequests"
+          class="request-card flex items-center justify-between"
+        >
+          <div class="flex-1">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="text-xl font-bold text-slate-800">{{ request.title }}</h4>
+              <span class="status-active">Active</span>
+            </div>
+            
+            <p class="text-slate-600 mb-4 leading-relaxed">{{ request.description }}</p>
+            
+            <div class="flex flex-wrap gap-4">
+              <div class="flex items-center text-slate-500">
+                <span class="text-lg mr-2">📍</span>
+                <span class="font-medium">{{ request.location }}</span>
+              </div>
+              <div class="flex items-center text-slate-500">
+                <span class="text-lg mr-2">🗂️</span>
+                <span class="font-medium">{{ request.category }}</span>
+              </div>
+              <span [class]="'urgency-' + request.urgency?.toLowerCase()">
+                {{ request.urgency }} Priority
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Completed Requests Section -->
+    <div class="mb-12">
+      <h3 class="text-3xl font-bold gradient-text mb-8 text-center">
+        <span class="text-3xl mr-3">✅</span>Completed Requests
+      </h3>
+      
+      <div *ngIf="completedRequests.length === 0" class="text-center py-12">
+        <div class="text-6xl mb-4">🎉</div>
+        <p class="text-xl text-slate-500 font-medium">No completed requests yet</p>
+        <p class="text-slate-400">Your completed requests will appear here!</p>
+      </div>
+
+      <div class="grid gap-6">
+        <div
+          *ngFor="let request of completedRequests"
+          class="request-card flex items-center justify-between"
+        >
+          <div class="flex-1">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="text-xl font-bold text-slate-800">{{ request.title }}</h4>
+              <span class="status-completed">Completed</span>
+            </div>
+            
+            <p class="text-slate-600 mb-4 leading-relaxed">{{ request.description }}</p>
+            
+            <div class="glass p-4 rounded-xl mb-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <span class="text-2xl mr-3">🤝</span>
+                  <div>
+                    <p class="font-bold text-green-600">Completed by</p>
+                    <p class="text-slate-700 font-medium">{{ request.helperEmail || 'Unknown Helper' }}</p>
+                  </div>
+                </div>
+                <div class="flex gap-3">
+                  <button 
+                    class="btn-primary px-4 py-2 text-sm"
+                    (click)="copyEmail(request.helperEmail)"
+                    title="Send message to helper via Gmail">
+                    <span class="text-lg mr-1">📧</span>
+                    Send Message
+                  </button>
+                  <button 
+                    class="btn-secondary px-4 py-2 text-sm"
+                    (click)="showFeedbackModal(request)"
+                    title="Give feedback for this completed request">
+                    <span class="text-lg mr-1">⭐</span>
+                    Give Feedback
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex flex-wrap gap-4">
+              <div class="flex items-center text-slate-500">
+                <span class="text-lg mr-2">📍</span>
+                <span class="font-medium">{{ request.location }}</span>
+              </div>
+              <div class="flex items-center text-slate-500">
+                <span class="text-lg mr-2">🗂️</span>
+                <span class="font-medium">{{ request.category }}</span>
+              </div>
+              <span [class]="'urgency-' + request.urgency?.toLowerCase()">
+                {{ request.urgency }} Priority
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div 
+    *ngIf="showFeedbackForm" 
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+    (click)="closeFeedbackModal()">
+    
+    <div 
+      class="card p-8 max-w-lg w-full"
+      (click)="$event.stopPropagation()">
+      
+      <div class="text-center mb-6">
+        <h3 class="text-2xl font-bold gradient-text mb-2">Rate Your Experience</h3>
+        <p class="text-slate-600">Help us improve our community by sharing your feedback</p>
+      </div>
+
+      <!-- Request Info -->
+      <div class="glass p-4 rounded-xl mb-6">
+        <h4 class="font-bold text-slate-800 mb-1">{{ selectedRequest?.title }}</h4>
+        <p class="text-sm text-slate-600 mb-2">{{ selectedRequest?.description }}</p>
+        <p class="text-sm font-medium text-green-600">
+          Completed by: {{ selectedRequest?.helperEmail }}
+        </p>
+      </div>
+
+      <!-- Star Rating -->
+      <div class="mb-6">
+        <label class="block text-lg font-bold text-slate-700 mb-3 text-center">
+          How would you rate this help?
+        </label>
+        <div class="flex justify-center gap-2 mb-2">
+          <button
+            *ngFor="let star of [1,2,3,4,5]"
+            (click)="setRating(star)"
+            class="text-3xl transition-all hover:scale-110"
+            [class]="star <= feedbackRating ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-200'">
+            ⭐
+          </button>
+        </div>
+        <p class="text-center text-sm text-slate-500">
+          {{ getRatingText(feedbackRating) }}
+        </p>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-6">
+        <label class="block text-lg font-bold text-slate-700 mb-3">
+          Share your experience (optional)
+        </label>
+        <textarea
+          [(ngModel)]="feedbackDescription"
+          class="form-input resize-none"
+          rows="4"
+          placeholder="Tell us about your experience with this helper...">
+        </textarea>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex gap-4">
+        <button 
+          class="btn-secondary flex-1"
+          (click)="closeFeedbackModal()">
+          Cancel
+        </button>
+        <button 
+          class="btn-primary flex-1"
+          (click)="submitFeedback()"
+          [disabled]="feedbackRating === 0">
+          <span class="text-lg mr-2">✨</span>
+          Submit Feedback
+        </button>
+      </div>
+    </div>
+  </div>

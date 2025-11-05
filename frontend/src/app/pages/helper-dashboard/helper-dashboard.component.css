@@ -1,0 +1,191 @@
+/* Helper Dashboard specific styles - leveraging global design system */
+
+.helper-impact-badge {
+  @apply glass p-3 rounded-xl flex items-center;
+}
+
+.request-priority-indicator {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  @apply w-4 h-4 rounded-full;
+}
+
+.request-priority-indicator.high {
+  @apply bg-red-500;
+}
+
+.request-priority-indicator.medium {
+  @apply bg-yellow-500;
+}
+
+.request-priority-indicator.low {
+  @apply bg-green-500;
+}
+
+/* Animation for new requests */
+@keyframes requestAlert {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.new-request {
+  animation: requestAlert 2s ease-in-out infinite;
+}
+
+/* Hover effects for interactive elements */
+.request-card:hover .urgency-high,
+.request-card:hover .urgency-medium,
+.request-card:hover .urgency-low {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* Custom scrollbar for completed requests */
+.completed-requests-container {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.completed-requests-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.completed-requests-container::-webkit-scrollbar-track {
+  @apply bg-slate-100 rounded-full;
+}
+
+.completed-requests-container::-webkit-scrollbar-thumb {
+  @apply bg-purple-400 rounded-full;
+}
+
+.completed-requests-container::-webkit-scrollbar-thumb:hover {
+  @apply bg-purple-600;
+}
+
+.request-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.request-item:last-child {
+  border-bottom: none;
+}
+
+.request-status {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9em;
+}
+
+.request-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.request-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.urgent-tag {
+  background-color: #dc3545;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.request-info-row {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.request-actions {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.offer-help-button {
+  background-color: #ff8c42;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.view-details-button {
+  background-color: transparent;
+  color: #007bff;
+  border: 1px solid #007bff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.activity-cards-row {
+  display: flex;
+  gap: 20px;
+}
+
+.activity-card {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  flex: 1;
+}
+
+/* Urgency tags styling */
+.urgency-tag {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.urgency-high {
+  background-color: #ff4444;
+  color: white;
+}
+
+.urgency-medium {
+  background-color: #ffaa00;
+  color: white;
+}
+
+.urgency-low {
+  background-color: #44ff44;
+  color: #333;
+}
+
+/* Completed request styles */
+.request-card.completed {
+  border-left: 4px solid #10b981;
+  background-color: #f0f9ff;
+}
+
+.completed-tag {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #10b981;
+  color: white;
+}
